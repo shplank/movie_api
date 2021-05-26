@@ -57,8 +57,16 @@ app.get('/documentation', (req, res) => {
   res.sendFile('public/documentation.html', { root: __dirname });
 });
 
+app.use(express.static('public'));
+
 app.get('/movies', (req, res) => {
   res.json(topDocs);
+});
+
+// log errors
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
 });
 
 // listen for requests
