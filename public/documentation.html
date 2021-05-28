@@ -9,16 +9,20 @@
       table, th, td {
         border: 1px solid black;
         border-collapse: collapse;
+        padding: 5px;
       }
 </style>
   </head>
 
   <body>
 
-  <h1>DocFlix Documentation Page</h1>
+  <h1>Mooovies! Documentation Page</h1>
 
   <p>
     This web service API gives users access to a plethora of information about various films, genres, directors, and actors. It will allow users to create personalized accounts as well as lists of favorite movies and movies they would like to see!
+  </p>
+  <p>
+    The table below lists actions that users can implement with this app:
   </p>
 
   <table style="width:100%">
@@ -36,91 +40,105 @@
       <td>Return a list of ALL films to the user</td>
       <td>/films</td>
       <td>GET</td>
-      <td>[parameters]</td>
+      <td>none</td>
       <td>none</td>
       <td>none</td>
       <td>A JSON object with data about all films</td>
-      <td>Smith</td>
+      <td>    {
+        "title": "Parasite",<br>
+        "year": 2019,<br>
+        "director": "Bong Joon-ho",<br>
+        "genres": "thriller, comedy"
+    }</td>
     </tr>
     <tr>
       <td>Return data about a single movie by title to the user</td>
       <td>/films/[title]</td>
       <td>GET</td>
-      <td>[parameters]</td>
+      <td>:title</td>
       <td>none</td>
       <td>none</td>
       <td>A JSON object with data about a single film, including title, release year, director, genre, and description</td>
-      <td>Smith</td>
+      <td>{
+        "title": "Arrival",<br>
+        "year": 2016,<br>
+        "director": "Denis Villeneuve",<br>
+        "genres": "sci-fi, thriller"
+      }</td>
     </tr>
     <tr>
       <td>Return data about a genre (description) by name/title</td>
-      <td>/films/[genre]</td>
+      <td>/genres/[name]</td>
       <td>GET</td>
-      <td>[parameters]</td>
-      <td>none</td>
-      <td>none</td>
-      <td>Jill</td>
-      <td>Smith</td>
+      <td>:name</td>
+      <td>name of genre</td>
+      <td>"western"</td>
+      <td>Text that descibes a genre and notable works therein</td>
+      <td>"Westerns are the major defining genre of the American film industry - a eulogy to the early days of the expansive American frontier..."</td>
     </tr>
     <tr>
       <td>Return data about a director by name</td>
       <td>/directors/[director name]</td>
       <td>GET</td>
-      <td>[parameters]</td>
-      <td>none</td>
-      <td>none</td>
-      <td>Jill</td>
-      <td>Smith</td>
+      <td>:director</td>
+      <td>name of director</td>
+      <td>"Alfred Hitchcock"</td>
+      <td>Text that includes a director's biography and work</td>
+      <td>"Among the most celebrated, imitated, and beloved directors of the 20th century, Alfred Hitchcock is widely seen as the father of the thriller..."</td>
     </tr>
     <tr>
       <td>Allow new users to register</td>
       <td>/users</td>
       <td>POST</td>
-      <td>[parameters]</td>
-      <td>Smith</td>
-      <td>50</td>
-      <td>Jill</td>
-      <td>Smith</td>
+      <td>none</td>
+      <td>A JSON object with a username, email address, and password</td>
+      <td>{
+        "username": "[username]",<br>
+        "email": "[email address]",<br>
+        "password": "[password]"
+      }</td>
+      <td>A text message indicating successful registration</td>
+      <td>"Registration successful!"</td>
     </tr>
     <tr>
       <td>Allow users to update their user info</td>
-      <td>/users/[username]/info</td>
+      <td>/users/[username]/profile</td>
       <td>PUT</td>
-      <td>[parameters]</td>
-      <td>Smith</td>
-      <td>50</td>
-      <td>Jill</td>
-      <td>Smith</td>
+      <td>:username</td>
+      <td>n/a</td>
+      <td>n/a</td>
+      <td>A text message indicating a successful update</td>
+      <td>"Profile successfully updated"</td>
     </tr>
     <tr>
       <td>Allow users to add a movie to their list of favorites</td>
       <td>/users/[username]/favorites</td>
       <td>POST</td>
-      <td>[parameters]</td>
-      <td>Smith</td>
-      <td>50</td>
-      <td>Jill</td>
-      <td>Smith</td>
+      <td>:username</td>
+      <td>[title] of film to be added to favorites</td>
+      <td>"Field of Dreams"</td>
+      <td>A text message indicating a successful addition</td>
+      <td>"[title] added to favorites"</td>
     </tr>
     <tr>
       <td>Allow users to remove a movie from their list of favorites</td>
       <td>users/[username]/favorites/[title]</td>
       <td>DELETE</td>
-      <td>[parameters]</td>
-      <td>Smith</td>
-      <td>50</td>
-      <td>Jill</td>
-      <td>Smith</td>
+      <td>:username, :title</td>
+      <td>none</td>
+      <td>none</td>
+      <td>A text message indicating a successful removal</td>
+      <td>"[title] removed from favorites"</td>
     </tr>
     <tr>
-      <td>Allow existing users to deregister</td>
+      <td>Allow existing users to de-register</td>
       <td>/users/[username]</td>
       <td>DELETE</td>
-      <td>[parameters]</td>
-      <td>Smith</td>
-      <td>50</td>
-      <td>Jill</td>
-      <td>Smith</td>
+      <td>:username</td>
+      <td>none</td>
+      <td>none</td>
+      <td>A text message indicating successful de-registration</td>
+      <td>"De-registration successful"</td>
     </tr>
   </table>
 
