@@ -1,54 +1,79 @@
 const express = require('express'),
-  morgan = require('morgan');
+  morgan = require('morgan'),
+  bodyParser = require('body-parser'),
+  uuid = require('uuid');
 
 const app = express();
 
 app.use(morgan('common'));
 
-let topDocs = [
+app.use(bodyParser.json());
+
+let films = [
   {
-    title: 'Won\'t You Be My Neighbor? (2018)',
-    director: 'Morgan Neville'
+    title: 'Parasite',
+    year: 2019,
+    director: 'Bong Joon-ho',
+    genres: 'thriller, comedy'
   },
   {
-    title: '13th (2016)',
-    director: 'Ava DuVernay'
+    title: 'Moonlight',
+    year: 2016,
+    director: 'Barry Jenkins',
+    genres: 'drama, indie'
   },
   {
-    title: '20 Feet from Stardom (2013)',
-    director: 'Morgan Neville'
+    title: 'Get Out',
+    year: 2017,
+    director: 'Jordan Peele',
+    genres: 'horror, thriller'
   },
   {
-    title: 'March of the Penguins (2005)',
-    director: 'Luc Jacquet'
+    title: 'The Favourite',
+    year: 2018,
+    director: 'Yorgos Lanthimos',
+    genres: 'drama, history'
   },
   {
-    title: 'Time (2020)',
-    director: 'Garrett Bradley'
+    title: 'Midsommar',
+    year: 2019,
+    director: 'Ari Aster',
+    genres: 'horror, drama'
   },
   {
-    title: 'Jodorowsky\'s Dune (2014)',
-    director: 'Frank Pavich'
+    title: 'Black Swan',
+    year: 2010,
+    director: 'Darren Aronofsky',
+    genres: 'thriller, drama'
   },
   {
-    title: 'I Am (2010)',
-    director: 'Tom Shadyac'
+    title: 'Arrival',
+    year: 2016,
+    director: 'Denis Villeneuve',
+    genres: 'sci-fi, thriller'
   },
   {
-    title: 'Paris Is Burning (1990)',
-    director: 'Jennie Livingston'
+    title: 'Blade Runner',
+    year: 1982,
+    director: 'Ridley Scott',
+    genres: 'sci-fi, action'
   },
   {
-    title: 'Vernon, Florida (1981)',
-    director: 'Errol Morris'
+    title: 'Raising Arizona',
+    year: 1987,
+    director: 'Joel Coen',
+    genres: 'comedy, crime'
   },
   {
-    title: 'Grey Gardens (1975)',
-    director: 'David Maysles, Albert Maysles'
+    title: 'The City of Lost Children',
+    year: 1995,
+    director: 'Marc Caro, Jean-Pierre Jeunet',
+    genres: 'fantasy, sci-fi'
   }
 ];
 
 // GET requests
+
 app.get('/', (req, res) => {
   res.send('Welcome to DocFlix!');
 });
@@ -59,9 +84,20 @@ app.get('/documentation', (req, res) => {
 
 app.use(express.static('public'));
 
-app.get('/movies', (req, res) => {
-  res.json(topDocs);
+// Gets the list of data about ALL docs
+
+app.get('/films', (req, res) => {
+  res.json(films);
 });
+
+// Gets the data about a single film, by title
+
+app.get('/films/:title', (req, res) => {
+  res.json(films.find((film) =>
+    { return film.title === req.params.title }));
+});
+
+
 
 // log errors
 app.use((err, req, res, next) => {

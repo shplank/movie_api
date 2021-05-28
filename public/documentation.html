@@ -4,7 +4,13 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Movie API Documentation</title>
+    <title>Mooovies! API Documentation</title>
+    <style>
+      table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+</style>
   </head>
 
   <body>
@@ -12,8 +18,111 @@
   <h1>DocFlix Documentation Page</h1>
 
   <p>
-    This web application gives users access to a plethora of information about various films, genres, directors, and actors. It will allow users to create personalized accounts as well as lists of favorite movies and movies they would like to see!
+    This web service API gives users access to a plethora of information about various films, genres, directors, and actors. It will allow users to create personalized accounts as well as lists of favorite movies and movies they would like to see!
   </p>
+
+  <table style="width:100%">
+    <tr>
+      <th>Action</th>
+      <th>Endpoint URL</th>
+      <th>HTTP Method</th>
+      <th>Parameters</th>
+      <th>Request format</th>
+      <th>Example request</th>
+      <th>Response format</th>
+      <th>Example response</th>
+    </tr>
+    <tr>
+      <td>Return a list of ALL films to the user</td>
+      <td>/films</td>
+      <td>GET</td>
+      <td>[parameters]</td>
+      <td>none</td>
+      <td>none</td>
+      <td>A JSON object with data about all films</td>
+      <td>Smith</td>
+    </tr>
+    <tr>
+      <td>Return data about a single movie by title to the user</td>
+      <td>/films/[title]</td>
+      <td>GET</td>
+      <td>[parameters]</td>
+      <td>none</td>
+      <td>none</td>
+      <td>A JSON object with data about a single film, including title, release year, director, genre, and description</td>
+      <td>Smith</td>
+    </tr>
+    <tr>
+      <td>Return data about a genre (description) by name/title</td>
+      <td>/films/[genre]</td>
+      <td>GET</td>
+      <td>[parameters]</td>
+      <td>none</td>
+      <td>none</td>
+      <td>Jill</td>
+      <td>Smith</td>
+    </tr>
+    <tr>
+      <td>Return data about a director by name</td>
+      <td>/directors/[director name]</td>
+      <td>GET</td>
+      <td>[parameters]</td>
+      <td>none</td>
+      <td>none</td>
+      <td>Jill</td>
+      <td>Smith</td>
+    </tr>
+    <tr>
+      <td>Allow new users to register</td>
+      <td>/users</td>
+      <td>POST</td>
+      <td>[parameters]</td>
+      <td>Smith</td>
+      <td>50</td>
+      <td>Jill</td>
+      <td>Smith</td>
+    </tr>
+    <tr>
+      <td>Allow users to update their user info</td>
+      <td>/users/[username]/info</td>
+      <td>PUT</td>
+      <td>[parameters]</td>
+      <td>Smith</td>
+      <td>50</td>
+      <td>Jill</td>
+      <td>Smith</td>
+    </tr>
+    <tr>
+      <td>Allow users to add a movie to their list of favorites</td>
+      <td>/users/[username]/favorites</td>
+      <td>POST</td>
+      <td>[parameters]</td>
+      <td>Smith</td>
+      <td>50</td>
+      <td>Jill</td>
+      <td>Smith</td>
+    </tr>
+    <tr>
+      <td>Allow users to remove a movie from their list of favorites</td>
+      <td>users/[username]/favorites/[title]</td>
+      <td>DELETE</td>
+      <td>[parameters]</td>
+      <td>Smith</td>
+      <td>50</td>
+      <td>Jill</td>
+      <td>Smith</td>
+    </tr>
+    <tr>
+      <td>Allow existing users to deregister</td>
+      <td>/users/[username]</td>
+      <td>DELETE</td>
+      <td>[parameters]</td>
+      <td>Smith</td>
+      <td>50</td>
+      <td>Jill</td>
+      <td>Smith</td>
+    </tr>
+  </table>
 
   </body>
 
