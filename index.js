@@ -77,7 +77,7 @@ let users = [];
 // GET requests
 
 app.get('/', (req, res) => {
-  res.send('Welcome to DocFlix!');
+  res.send('Welcome to Mooovies!');
 });
 
 app.get('/documentation', (req, res) => {
@@ -102,31 +102,20 @@ app.get('/films/:title', (req, res) => {
 // Gets the data about a genre, by name
 
 app.get('/genres/:name', (req, res) => {
-  res.json(genres.find((genre) =>
-    { return genre.name === req.params.name }));
-});
+  res.send('Successful GET request returning data on a genre');
+ });
 
 // Gets the data about a director, by name
 
 app.get('/directors/:name', (req, res) => {
-  res.json(directors.find((director) =>
-    { return director.name === req.params.name }));
-});
+  res.send('Successful GET request returning data on a director');
+ });
 
 // Allows a new user to register
 
 app.post('/users', (req, res) => {
-  let newUser = req.body;
-
-  if (!newUser.name) {
-    const message = 'Missing username in request body';
-    res.status(400).send(message);
-  } else {
-    newUser.id = uuid.v4();
-    users.push(newUser);
-    res.status(201).send(newUser);
-  }
-});
+  res.send('Successful POST request adding a user');
+ });
 
 // Updates a user's profile
 
