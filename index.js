@@ -120,51 +120,26 @@ app.post('/users', (req, res) => {
 // Updates a user's profile
 
 app.put('/users/:username/profile', (req, res) => {
-  let user = users.find((user) => { return user.username === req.params.username });
-
-  if (user) {
-    user.profile[req.params.username] = parseInt(req.params.username);
-    res.status(201).send('Profile for ' + req.params.username + ' has been updated.');
-  } else {
-    res.status(404).send('User with the name ' + req.params.username + ' was not found.');
-  }
-});
+  res.send('Successful PUT request changing a user profile');
+ });
 
 // Adds a film to a user's list of favorites
 
 app.post('/users/:username/favorites', (req, res) => {
-  let newFave = req.body;
-
-  if (!newFave.title) {
-    const message = 'Missing title in request body';
-    res.status(400).send(message);
-  } else {
-    users.favorites.push(newFave);
-    res.status(201).send(newFave);
-  }
-});
+  res.send('Successful POST request adding a film to a favorites list');
+ });
 
 // Removes a film from a user's list of favorites
 
 app.delete('/users/:username/favorites/:title', (req, res) => {
-  let film = films.find((film) => { return film.title === req.params.title });
-
-  if (film) {
-    films = films.filter((obj) => { return obj.title !== req.params.title });
-    res.status(201).send(req.params.title + ' was removed from favorites.');
-  }
-});
+  res.send('Successful DELETE request removing a film from a favorites list');
+ });
 
 // De-registers a user
 
 app.delete('/users/:username', (req, res) => {
-  let user = users.find((user) => { return user.username === req.params.username });
-
-  if (user) {
-    user = users.filter((obj) => { return obj.username !== req.params.username });
-    res.status(201).send('User ' + req.params.username + ' has been de-registered.');
-  }
-});
+  res.send('Successful DELETE request removing a user');
+ });
 
 // log errors
 app.use((err, req, res, next) => {
