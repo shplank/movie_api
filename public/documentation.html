@@ -45,11 +45,20 @@
       <td>none</td>
       <td>A JSON object with data about all films</td>
       <td>    {
-        "title": "Parasite",<br>
-        "year": 2019,<br>
-        "director": "Bong Joon-ho",<br>
-        "genres": "thriller, comedy"
-    }</td>
+        "_id" : ObjectId("60ba65a24241cd6da42cd2ff"),<br>
+        "Title" : "Lady Bird",<br>
+        "ReleaseYear" : "2017",<br>
+        "Description" : "A nurse works tirelessly to keep her family afloat after her husband loses his job...",<br>
+        "Genre" : {<br>
+                "Name" : "Comedy",<br>
+                "Description" : "Comedy is a genre of film in which the main emphasis is on humor..."},<br>
+        "Director" : {<br>
+                "Name" : "Greta Gerwig",<br>
+                "Bio" : "Greta Gerwig is an American actress, playwright, screenwriter, and director..."},<br>
+                "Birth" : "1983"<br>
+        "ImagePath" : "https://upload.wikimedia.org/wikipedia/en/6/61/Lady_Bird_poster.jpeg",<br>
+        "Featured" : false
+      }</td>
     </tr>
     <tr>
       <td>Return data about a single movie by title to the user</td>
@@ -59,32 +68,88 @@
       <td>none</td>
       <td>none</td>
       <td>A JSON object with data about a single film, including title, release year, director, genre, and description</td>
-      <td>{
-        "title": "Arrival",<br>
-        "year": 2016,<br>
-        "director": "Denis Villeneuve",<br>
-        "genres": "sci-fi, thriller"
+      <td>db.films.findOne( { Title: "Get Out" } )
+{
+        "_id" : ObjectId("60ba4e014241cd6da42cd2fa"),<br>
+        "Title" : "Get Out",<br>
+        "ReleaseYear" : "2017",<br>
+        "Description" : "A young African-American visits his white girlfriend's parents for the weekend...",<br>
+        "Genre" : {<br>
+                "Name" : "Horror",<br>
+                "Description" : "A horror film is one that seeks to elicit fear in its audience for entertainment purposes..."},<br>
+        "Director" : {<br>
+                "Name" : "Jordan Peele",<br>
+                "Bio" : "Jordan Haworth Peele attended Sarah Lawrence College as a member of the class of 2001..."},<br>
+                "Birth" : "1979"<br>
+        "ImagePath" : "https://upload.wikimedia.org/wikipedia/en/a/a3/Get_Out_poster.png",<br>
+        "Featured" : true
       }</td>
     </tr>
     <tr>
       <td>Return data about a genre (description) by name/title</td>
-      <td>/genres/[name]</td>
+      <td>/films/genre/[name]</td>
       <td>GET</td>
       <td>:name</td>
       <td>name of genre</td>
-      <td>"western"</td>
+      <td>"Drama"</td>
       <td>Text that descibes a genre and notable works therein</td>
-      <td>"Westerns are the major defining genre of the American film industry - a eulogy to the early days of the expansive American frontier..."</td>
+      <td>"Westerns are the major defining genre of the American film industry..."</td>
     </tr>
     <tr>
       <td>Return data about a director by name</td>
-      <td>/directors/[director name]</td>
+      <td>films/director/[name]</td>
       <td>GET</td>
       <td>:director</td>
       <td>name of director</td>
       <td>"Alfred Hitchcock"</td>
       <td>Text that includes a director's biography and work</td>
-      <td>"Among the most celebrated, imitated, and beloved directors of the 20th century, Alfred Hitchcock is widely seen as the father of the thriller..."</td>
+      <td>"Among the most celebrated, imitated, and beloved directors of the 20th century..."</td>
+    </tr>
+    <tr>
+      <td>Return a list of all users</td>
+      <td>users/</td>
+      <td>GET</td>
+      <td>none</td>
+      <td>none</td>
+      <td>none</td>
+      <td>A JSON object with data about all users</td>
+      <td>{
+        "_id": "60c13dbabbcc8744d8532c33",<br>
+        "Username": "testuser",<br>
+        "Password": "testpassword",<br>
+        "Email": "testmail@gmail.com",<br>
+        "Birthdate": "1988-08-08T07:00:00.000Z",<br>
+        "Favorites": [<br>
+            "60ba65a24241cd6da42cd2ff",<br>
+            "60ba5f274241cd6da42cd2fc",<br>
+            "60ba5d904241cd6da42cd2fb",<br>
+            "60ba72d54241cd6da42cd301"<br>
+        ],<br>
+        "__v": 0
+    }</td>
+    </tr>
+    <tr>
+      <td>Return a single user by username</td>
+      <td>users/[username]</td>
+      <td>GET</td>
+      <td>:username</td>
+      <td>Username</td>
+      <td>"testuser"</td>
+      <td>A JSON object with data about one user</td>
+      <td>{
+        "_id": "60c13dbabbcc8744d8532c33",<br>
+        "Username": "testuser",<br>
+        "Password": "testpassword",<br>
+        "Email": "testmail@gmail.com",<br>
+        "Birthdate": "1988-08-08T07:00:00.000Z",<br>
+        "Favorites": [<br>
+            "60ba65a24241cd6da42cd2ff",<br>
+            "60ba5f274241cd6da42cd2fc",<br>
+            "60ba5d904241cd6da42cd2fb",<br>
+            "60ba72d54241cd6da42cd301"<br>
+        ],<br>
+        "__v": 0
+    }</td>
     </tr>
     <tr>
       <td>Allow new users to register</td>
@@ -95,7 +160,8 @@
       <td>{
         "username": "[username]",<br>
         "email": "[email address]",<br>
-        "password": "[password]"
+        "password": "[password]",<br>,
+        "birthdate": "[date]"
       }</td>
       <td>A text message indicating successful registration</td>
       <td>"Registration successful!"</td>
