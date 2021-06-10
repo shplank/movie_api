@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const Models = require('./models.js');
 
 const Films = Models.Film;
+const Genres = Models.Genre;
+const Directors = Models.Director;
 const Users = Models.User;
 
 mongoose.connect('mongodb://localhost:27017/moooviesdb', { useNewUrlParser: true, useUnifiedTopology: true });
@@ -54,14 +56,28 @@ app.get('/films/:Title', (req, res) => {
 });
 
 // Get the data about a genre, by name
-app.get('/genres/:name', (req, res) => {
-  res.send('Successful GET request returning data on a genre');
- });
+app.get('/genres/:Name', (req, res) => {
+  Genres.findOne({ Name: req.params.Name })
+    .then((genre) => {
+      res.json(genre);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
 
 // Get the data about a director, by name
-app.get('/directors/:name', (req, res) => {
-  res.send('Successful GET request returning data on a director');
- });
+app.get('/directors/:Name', (req, res) => {
+  Directors.findOne({ Name: req.params.Name })
+    .then((director) => {
+      res.json(director);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
 
  // Get all users
  app.get('/users', (req, res) => {
@@ -100,7 +116,7 @@ app.get('/users/:Username', (req, res) => {
    Users.findOne({ Username: req.body.Username })
      .then((user) => {
        if (user) {
-         return res.status(400).send(req.body.Username + 'already exists');
+         return res.status(400).send(req.body.Username + ' already exists');
        } else {
          Users
            .create({
