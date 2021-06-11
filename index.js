@@ -106,11 +106,10 @@ app.get('/users/:Username', (req, res) => {
  //Add a user
  /* We’ll expect JSON in this format
  {
-   ID: Integer,
    Username: String,
    Password: String,
    Email: String,
-   Birthday: Date
+   Birthdate: Date
  }*/
  app.post('/users', (req, res) => {
    Users.findOne({ Username: req.body.Username })
@@ -125,7 +124,7 @@ app.get('/users/:Username', (req, res) => {
              Email: req.body.Email,
              Birthdate: req.body.Birthdate
            })
-           .then((user) =>{res.status(201).json(user) })
+           .then((user) => {res.status(201).json(user) })
          .catch((error) => {
            console.error(error);
            res.status(500).send('Error: ' + error);
@@ -167,7 +166,7 @@ app.put('/users/:Username', (req, res) => {
 });
 
 // Add a film to a user's list of favorites
-app.post('/users/:Username/Films/:FilmID', (req, res) => {
+app.post('/users/:Username/films/:FilmID', (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, {
      $push: { Favorites: req.params.FilmID }
    },
@@ -183,7 +182,7 @@ app.post('/users/:Username/Films/:FilmID', (req, res) => {
 });
 
 // Remove a film from a user's list of favorites
-app.post('/users/:Username/Films/:FilmID', (req, res) => {
+app.delete('/users/:Username/favorites/:FilmID', (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, {
      $pull: { Favorites: req.params.FilmID }
    },

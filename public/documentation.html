@@ -48,13 +48,13 @@
         "_id" : ObjectId("60ba65a24241cd6da42cd2ff"),<br>
         "Title" : "Lady Bird",<br>
         "ReleaseYear" : "2017",<br>
-        "Description" : "A nurse works tirelessly to keep her family afloat after her husband loses his job...",<br>
+        "Description" : "A nurse works tirelessly to keep her family afloat...",<br>
         "Genre" : {<br>
                 "Name" : "Comedy",<br>
-                "Description" : "Comedy is a genre of film in which the main emphasis is on humor..."},<br>
+                "Description" : "Comedy is a genre of film in which the main..."},<br>
         "Director" : {<br>
                 "Name" : "Greta Gerwig",<br>
-                "Bio" : "Greta Gerwig is an American actress, playwright, screenwriter, and director..."},<br>
+                "Bio" : "Greta Gerwig is an American actress, playwright..."},<br>
                 "Birth" : "1983"<br>
         "ImagePath" : "https://upload.wikimedia.org/wikipedia/en/6/61/Lady_Bird_poster.jpeg",<br>
         "Featured" : false
@@ -73,13 +73,13 @@
         "_id" : ObjectId("60ba4e014241cd6da42cd2fa"),<br>
         "Title" : "Get Out",<br>
         "ReleaseYear" : "2017",<br>
-        "Description" : "A young African-American visits his white girlfriend's parents for the weekend...",<br>
+        "Description" : "A young African-American visits his white girlfriend's...",<br>
         "Genre" : {<br>
                 "Name" : "Horror",<br>
-                "Description" : "A horror film is one that seeks to elicit fear in its audience for entertainment purposes..."},<br>
+                "Description" : "A horror film is one that seeks to elicit fear..."},<br>
         "Director" : {<br>
                 "Name" : "Jordan Peele",<br>
-                "Bio" : "Jordan Haworth Peele attended Sarah Lawrence College as a member of the class of 2001..."},<br>
+                "Bio" : "Jordan Haworth Peele attended Sarah Lawrence College..."},<br>
                 "Birth" : "1979"<br>
         "ImagePath" : "https://upload.wikimedia.org/wikipedia/en/a/a3/Get_Out_poster.png",<br>
         "Featured" : true
@@ -93,7 +93,7 @@
       <td>name of genre</td>
       <td>"Drama"</td>
       <td>Text that descibes a genre and notable works therein</td>
-      <td>"Westerns are the major defining genre of the American film industry..."</td>
+      <td>"In film and television, drama is a category of narrative fiction (or semi-fiction) intended to be more serious than humorous in tone."</td>
     </tr>
     <tr>
       <td>Return data about a director by name</td>
@@ -164,23 +164,33 @@
         "birthdate": "[date]"
       }</td>
       <td>A text message indicating successful registration</td>
-      <td>"Registration successful!"</td>
+      <td>"Created"</td>
     </tr>
     <tr>
       <td>Allow users to update their user info</td>
       <td>/users/[username]/profile</td>
       <td>PUT</td>
       <td>:username</td>
-      <td>n/a</td>
-      <td>n/a</td>
-      <td>A text message indicating a successful update</td>
-      <td>"Profile successfully updated"</td>
+      <td>A JSON object with a new username, email address, and/or password</td>
+      <td>{
+        "username": "[username]",<br>
+        "email": "[email address]",<br>
+        "password": "[password]",<br>,
+        "birthdate": "[date]"
+      }</td>
+      <td>A JSON object with a new username, email address, and/or password</td>
+      <td>{
+        "username": "[username]",<br>
+        "email": "[email address]",<br>
+        "password": "[password]",<br>,
+        "birthdate": "[date]"
+      }</td>
     </tr>
     <tr>
       <td>Allow users to add a movie to their list of favorites</td>
-      <td>/users/[username]/favorites</td>
+      <td>/users/[username]/favorites/[title]</td>
       <td>POST</td>
-      <td>:username</td>
+      <td>:username, :title</td>
       <td>[title] of film to be added to favorites</td>
       <td>"Field of Dreams"</td>
       <td>A text message indicating a successful addition</td>
@@ -204,7 +214,7 @@
       <td>none</td>
       <td>none</td>
       <td>A text message indicating successful de-registration</td>
-      <td>"De-registration successful"</td>
+      <td>"[username] was deleted"</td>
     </tr>
   </table>
 
