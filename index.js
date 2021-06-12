@@ -184,7 +184,7 @@ app.post('/users/:Username/films/:FilmID', (req, res) => {
 // Remove a film from a user's list of favorites
 app.delete('/users/:Username/favorites/:FilmID', (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, {
-     $pull: { Favorites: req.params.FilmID }
+     $pull: { favorites: req.params.FilmID }
    },
    { new: true }, // This line makes sure that the updated document is returned
   (err, updatedUser) => {

@@ -187,24 +187,24 @@
       }</td>
     </tr>
     <tr>
-      <td>Allow users to add a movie to their list of favorites</td>
+      <td>Allow users to add a movie to their list of Favorites</td>
       <td>/users/[username]/favorites/[title]</td>
       <td>POST</td>
       <td>:username, :title</td>
       <td>[title] of film to be added to favorites</td>
       <td>"Field of Dreams"</td>
-      <td>A text message indicating a successful addition</td>
-      <td>"[title] added to favorites"</td>
+      <td>>A JSON object showing the film added to the user's Favorites</td>
+      <td>N/A</td>
     </tr>
     <tr>
-      <td>Allow users to remove a movie from their list of favorites</td>
+      <td>Allow users to remove a movie from their list of Favorites</td>
       <td>users/[username]/favorites/[title]</td>
       <td>DELETE</td>
       <td>:username, :title</td>
       <td>none</td>
       <td>none</td>
-      <td>A text message indicating a successful removal</td>
-      <td>"[title] removed from favorites"</td>
+      <td>A JSON object showing the film absent from the user's Favorites</td>
+      <td>"N/A"</td>
     </tr>
     <tr>
       <td>Allow existing users to de-register</td>
