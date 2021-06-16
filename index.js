@@ -171,9 +171,9 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (r
 });
 
 // Add a film to a user's list of favorites
-app.post('/users/:Username/films/:FilmID', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.post('/users/:Username/films/:_id', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, {
-     $push: { Favorites: req.params.FilmID }
+     $push: { Favorites: req.params._id }
    },
    { new: true }, // This line makes sure that the updated document is returned
   (err, updatedUser) => {
@@ -187,10 +187,9 @@ app.post('/users/:Username/films/:FilmID', passport.authenticate('jwt', { sessio
 });
 
 // Remove a film from a user's list of favorites
-app.delete('/users/:Username/favorites/:FilmID', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Users.findOneAndUpdate({ Username: req.params.Username }, {
-     $pull: { favorites: req.params.FilmID }
-   },
+app.delete('/users/:Username/favorites/:_id', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Users.findOneAndUpdate({ Username: req.params.Username },
+    { $pull: { Favorites: req.params._id } },
    { new: true }, // This line makes sure that the updated document is returned
   (err, updatedUser) => {
     if (err) {
