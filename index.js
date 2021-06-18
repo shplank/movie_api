@@ -15,6 +15,9 @@ const express = require('express'),
 
 const app = express();
 
+const cors = require('cors');
+app.use(cors());
+
 app.use(morgan('common'));
 
 app.use(bodyParser.json());
@@ -117,6 +120,7 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (r
    Birthdate: Date
  }*/
  app.post('/users', (req, res) => {
+   let hashedPassword = Users.hashPassword(req.body.Password);
    Users.findOne({ Username: req.body.Username })
      .then((user) => {
        if (user) {
@@ -125,7 +129,7 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (r
          Users
            .create({
              Username: req.body.Username,
-             Password: req.body.Password,
+             Password: hashedPassword,
              Email: req.body.Email,
              Birthdate: req.body.Birthdate
            })
