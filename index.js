@@ -27,6 +27,8 @@ let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
 
+const { check, validationResult } = require('express-validator');
+
 // GET requests
 
 app.get('/', (req, res) => {
@@ -119,7 +121,16 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (r
    Email: String,
    Birthdate: Date
  }*/
- app.post('/users', (req, res) => {
+ app.post('/users',
+ [ check('Username', 'Username of at least five characters is required').isLength({min: 5}),
+  check('Username', 'Username contains non-alphanumeric characters - not allowed').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not appear to be valid').isEmail(),
+  ], (req, res) => {
+    let errors = validationResult(req);
+    if(!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
    let hashedPassword = Users.hashPassword(req.body.Password);
    Users.findOne({ Username: req.body.Username })
      .then((user) => {
@@ -154,7 +165,17 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (r
   Email: String, (required)
   Birthday: Date
 }*/
-app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.put('/users/:Username', passport.authenticate('jwt', { session: false }),
+  [ check('Username', 'Username of at least five characters is required').isLength({min: 5}),
+  check('Username', 'Username contains non-alphanumeric characters - not allowed').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not appear to be valid').isEmail(),
+  ], (req, res) => {
+   let errors = validationResult(req);
+   if(!errors.isEmpty()) {
+     return res.status(422).json({ errors: errors.array() });
+   }
+  let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
     {
       Username: req.body.Username,
