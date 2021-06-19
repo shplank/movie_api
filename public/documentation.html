@@ -37,6 +37,56 @@
       <th>Example response</th>
     </tr>
     <tr>
+      <td>Allow new users to register</td>
+      <td>/users</td>
+      <td>POST</td>
+      <td>none</td>
+      <td>A JSON object with a username, email address, password, and birthdate</td>
+      <td>{
+        "username": "[username]",<br>
+        "email": "[email address]",<br>
+        "password": "[password]",<br>,
+        "birthdate": "[date]"
+      }</td>
+      <td>A text message indicating successful registration</td>
+      <td>"Created"</td>
+    </tr>
+    <tr>
+      <td>Allow users to log in</td>
+      <td>/login</td>
+      <td>POST</td>
+      <td>:Username, :Password</td>
+      <td>A JSON object with a username, email address, password, and birthdate</td>
+      <td>{
+        "username": "[username]",<br>
+        "email": "[email address]",<br>
+        "password": "[password]",<br>,
+        "birthdate": "[date]"
+      }</td>
+      <td>A text message indicating successful registration</td>
+      <td>"Created"</td>
+    </tr>
+    <tr>
+      <td>Allow users to update their user info</td>
+      <td>/users/[username]/profile</td>
+      <td>PUT</td>
+      <td>:username</td>
+      <td>A JSON object with a new username, email address, and/or password</td>
+      <td>{
+        "username": "[username]",<br>
+        "email": "[email address]",<br>
+        "password": "[password]",<br>,
+        "birthdate": "[date]"
+      }</td>
+      <td>A JSON object with a new username, email address, and/or password</td>
+      <td>{
+        "username": "[username]",<br>
+        "email": "[email address]",<br>
+        "password": "[password]",<br>,
+        "birthdate": "[date]"
+      }</td>
+    </tr>
+    <tr>
       <td>Return a list of ALL films to the user</td>
       <td>/films</td>
       <td>GET</td>
@@ -150,41 +200,6 @@
         ],<br>
         "__v": 0
     }</td>
-    </tr>
-    <tr>
-      <td>Allow new users to register</td>
-      <td>/users</td>
-      <td>POST</td>
-      <td>none</td>
-      <td>A JSON object with a username, email address, and password</td>
-      <td>{
-        "username": "[username]",<br>
-        "email": "[email address]",<br>
-        "password": "[password]",<br>,
-        "birthdate": "[date]"
-      }</td>
-      <td>A text message indicating successful registration</td>
-      <td>"Created"</td>
-    </tr>
-    <tr>
-      <td>Allow users to update their user info</td>
-      <td>/users/[username]/profile</td>
-      <td>PUT</td>
-      <td>:username</td>
-      <td>A JSON object with a new username, email address, and/or password</td>
-      <td>{
-        "username": "[username]",<br>
-        "email": "[email address]",<br>
-        "password": "[password]",<br>,
-        "birthdate": "[date]"
-      }</td>
-      <td>A JSON object with a new username, email address, and/or password</td>
-      <td>{
-        "username": "[username]",<br>
-        "email": "[email address]",<br>
-        "password": "[password]",<br>,
-        "birthdate": "[date]"
-      }</td>
     </tr>
     <tr>
       <td>Allow users to add a movie to their list of Favorites</td>
