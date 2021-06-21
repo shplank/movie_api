@@ -137,7 +137,7 @@
     </tr>
     <tr>
       <td>Return data about a genre (description) by name/title</td>
-      <td>/films/genre/[name]</td>
+      <td>/genres/[name]</td>
       <td>GET</td>
       <td>:name</td>
       <td>name of genre</td>
@@ -147,7 +147,7 @@
     </tr>
     <tr>
       <td>Return data about a director by name</td>
-      <td>films/director/[name]</td>
+      <td>/directors/[name]</td>
       <td>GET</td>
       <td>:director</td>
       <td>name of director</td>
@@ -157,7 +157,7 @@
     </tr>
     <tr>
       <td>Return a list of all users</td>
-      <td>users/</td>
+      <td>/users</td>
       <td>GET</td>
       <td>none</td>
       <td>none</td>
@@ -180,7 +180,7 @@
     </tr>
     <tr>
       <td>Return a single user by username</td>
-      <td>users/[username]</td>
+      <td>/users/[username]</td>
       <td>GET</td>
       <td>:username</td>
       <td>Username</td>
@@ -203,7 +203,7 @@
     </tr>
     <tr>
       <td>Allow users to add a movie to their list of Favorites</td>
-      <td>/users/[username]/favorites/[title]</td>
+      <td>/users/[username]/favorites/[filmID]</td>
       <td>POST</td>
       <td>:username, :title</td>
       <td>[title] of film to be added to favorites</td>
@@ -213,7 +213,7 @@
     </tr>
     <tr>
       <td>Allow users to remove a movie from their list of Favorites</td>
-      <td>users/[username]/favorites/[title]</td>
+      <td>/users/[username]/favorites/[filmID]</td>
       <td>DELETE</td>
       <td>:username, :title</td>
       <td>none</td>
