@@ -57,7 +57,7 @@ app.get('/films', passport.authenticate('jwt', { session: false }), (req, res) =
 // Get the data about a single film, by title
 app.get('/films/:Title', passport.authenticate('jwt', { session: false }), (req, res) => {
   Films.findOne({ Title: req.params.Title })
-    .populate('Genre Director', 'Name')
+    .populate('Genre Director', { Name: 1})
     .then((film) => {
       res.json(film);
     })
