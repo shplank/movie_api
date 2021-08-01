@@ -67,11 +67,35 @@ app.get('/films/:Title', passport.authenticate('jwt', { session: false }), (req,
     });
 });
 
+// Get the list of data about ALL genres
+app.get('/genres', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Genres.find()
+    .then((genres) => {
+      res.status(201).json(genres);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
 // Get the data about a genre, by name
 app.get('/genres/:Name', passport.authenticate('jwt', { session: false }), (req, res) => {
   Genres.findOne({ Name: req.params.Name })
     .then((genre) => {
       res.json(genre);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
+// Get the list of data about ALL directors
+app.get('/directors', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Directors.find()
+    .then((directors) => {
+      res.status(201).json(directors);
     })
     .catch((err) => {
       console.error(err);
