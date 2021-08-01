@@ -79,9 +79,9 @@ app.get('/genres', passport.authenticate('jwt', { session: false }), (req, res) 
     });
 });
 
-// Get the data about a genre, by name
-app.get('/genres/:Name', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Genres.findOne({ Name: req.params.Name })
+// Get the data about a genre, by id
+app.get('/genres/:_id', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Genres.findOne({ _id: req.params._id })
     .then((genre) => {
       res.json(genre);
     })
@@ -103,9 +103,9 @@ app.get('/directors', passport.authenticate('jwt', { session: false }), (req, re
     });
 });
 
-// Get the data about a director, by name
-app.get('/directors/:Name', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Directors.findOne({ Name: req.params.Name })
+// Get the data about a director, by id
+app.get('/directors/:_id', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Directors.findOne({ _id: req.params._id })
     .then((director) => {
       res.json(director);
     })
