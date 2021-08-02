@@ -45,6 +45,8 @@ app.use(express.static('public'));
 // Get the list of data about ALL films
 app.get('/films', passport.authenticate('jwt', { session: false }), (req, res) => {
   Films.find()
+  .populate({path: 'Genre', model: Genres})
+  .populate({path: 'Director', model: Directors})
     .then((films) => {
       res.status(201).json(films);
     })
