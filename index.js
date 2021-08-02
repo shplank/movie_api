@@ -44,10 +44,10 @@ app.use(express.static('public'));
 
 // Get the list of data about ALL films
 app.get('/films', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Films.find().populate([
+  Films.find().execPopulate([
     {path: 'Genre', model: Genres},
     {path: 'Director', model: Directors}
-    ]).execPopulate()
+    ])
     .then((films) => {
       res.status(201).json(films);
     })
@@ -60,10 +60,10 @@ app.get('/films', passport.authenticate('jwt', { session: false }), (req, res) =
 // Get the data about a single film, by title
 app.get('/films/:Title', passport.authenticate('jwt', { session: false }), (req, res) => {
   Films.findOne({ Title: req.params.Title })
-    .populate([
+    .execPopulate([
       {path: 'Genre', model: Genres},
       {path: 'Director', model: Directors}
-    ]).execPopulate()
+    ])
     .then((film) => {
       res.json(film);
     })
