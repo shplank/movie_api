@@ -70,6 +70,34 @@ app.get('/films/:Title', passport.authenticate('jwt', { session: false }), (req,
     });
 });
 
+// Get the data about films by genre
+app.get('/films/:Genre', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Films.find({ Genre: req.params.Genre })
+  .populate({path: 'Genre', model: Genres})
+  .populate({path: 'Director', model: Directors})
+    .then((films) => {
+      res.json(films);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
+// Get the data about films by director
+app.get('/films/:Director', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Films.find({ Director: req.params.Director })
+  .populate({path: 'Genre', model: Genres})
+  .populate({path: 'Director', model: Directors})
+    .then((films) => {
+      res.json(films);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
 // Get the list of data about ALL genres
 app.get('/genres', passport.authenticate('jwt', { session: false }), (req, res) => {
   Genres.find()
