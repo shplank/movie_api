@@ -72,7 +72,7 @@ app.get('/films/:Title', passport.authenticate('jwt', { session: false }), (req,
 
 // Get the data about films by genre
 app.get('/films/Genre/:_id', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Films.find({ _id: req.params.Genre._id })
+  Films.find({ _id: req.params._id })
   .populate({path: 'Genre', model: Genres})
   .populate({path: 'Director', model: Directors})
     .then((films) => {
@@ -86,7 +86,7 @@ app.get('/films/Genre/:_id', passport.authenticate('jwt', { session: false }), (
 
 // Get the data about films by director
 app.get('/films/Director/:_id', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Films.find({ _id: req.params.Director._id })
+  Films.find({ _id: req.params._id })
   .populate({path: 'Genre', model: Genres})
   .populate({path: 'Director', model: Directors})
     .then((films) => {
@@ -161,6 +161,7 @@ app.get('/users', passport.authenticate('jwt', { session: false }), (req, res) =
 // Get a user by username
 app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOne({ Username: req.params.Username })
+  .populate({path: 'Favorites', model: Films})
     .then((user) => {
       res.json(user);
     })
