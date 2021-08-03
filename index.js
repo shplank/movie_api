@@ -72,7 +72,7 @@ app.get('/films/:Title', passport.authenticate('jwt', { session: false }), (req,
 
 // Get the data about films by genre
 app.get('/films/Genre/:_id', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Films.find({ _id: mongoose.Types.ObjectId(Genre) })
+  Films.find({ _id: mongoose.Types.ObjectId(req.params.Genre) })
   .populate({path: 'Genre', model: Genres})
   .populate({path: 'Director', model: Directors})
     .then((films) => {
@@ -86,7 +86,7 @@ app.get('/films/Genre/:_id', passport.authenticate('jwt', { session: false }), (
 
 // Get the data about films by director
 app.get('/films/Director/:_id', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Films.find({ _id: mongoose.Types.ObjectId(Director) })
+  Films.find({ _id: mongoose.Types.ObjectId(req.params.Director) })
   .populate({path: 'Genre', model: Genres})
   .populate({path: 'Director', model: Directors})
     .then((films) => {
