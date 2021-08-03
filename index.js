@@ -71,8 +71,8 @@ app.get('/films/:Title', passport.authenticate('jwt', { session: false }), (req,
 });
 
 // Get the data about films by genre
-app.get('/films/Genre/:_id', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Films.find({ _id: req.params._id })
+app.get('/films/:Genre', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Films.find({ Genre: req.params.Genre })
   .populate({path: 'Genre', model: Genres})
   .populate({path: 'Director', model: Directors})
     .then((films) => {
@@ -85,8 +85,8 @@ app.get('/films/Genre/:_id', passport.authenticate('jwt', { session: false }), (
 });
 
 // Get the data about films by director
-app.get('/films/Director/:_id', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Films.find({ _id: req.params._id })
+app.get('/films/:Director', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Films.find({ Director: req.params.Director })
   .populate({path: 'Genre', model: Genres})
   .populate({path: 'Director', model: Directors})
     .then((films) => {
@@ -110,7 +110,7 @@ app.get('/genres', passport.authenticate('jwt', { session: false }), (req, res) 
     });
 });
 
-// Get the data about a genre, by id
+// Get the data about a genre, by name
 app.get('/genres/:Name', passport.authenticate('jwt', { session: false }), (req, res) => {
   Genres.findOne({ Name: req.params.Name })
     .then((genre) => {
@@ -134,7 +134,7 @@ app.get('/directors', passport.authenticate('jwt', { session: false }), (req, re
     });
 });
 
-// Get the data about a director, by id
+// Get the data about a director, by name
 app.get('/directors/:Name', passport.authenticate('jwt', { session: false }), (req, res) => {
   Directors.findOne({ Name: req.params.Name })
     .then((director) => {
