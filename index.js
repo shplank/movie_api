@@ -71,7 +71,7 @@ app.get('/films/:Title', passport.authenticate('jwt', { session: false }), (req,
 });
 
 // Get the data about films by genre
-app.get('/films/Genre/_id', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.get('/films/Genre/:_id', passport.authenticate('jwt', { session: false }), (req, res) => {
   Films.find({ _id: req.params.Genre._id })
   .populate({path: 'Genre', model: Genres})
   .populate({path: 'Director', model: Directors})
