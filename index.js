@@ -71,7 +71,7 @@ app.get('/films/:Title', passport.authenticate('jwt', { session: false }), (req,
 });
 
 // Get the data about films by genre
-app.get('/films/Genre/:_id', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.get('/Genre/:_id', passport.authenticate('jwt', { session: false }), (req, res) => {
   Films.find({ Genre: mongoose.Types.ObjectId(req.params._id) })
   .populate({path: 'Genre', model: Genres})
   .populate({path: 'Director', model: Directors})
@@ -85,7 +85,7 @@ app.get('/films/Genre/:_id', passport.authenticate('jwt', { session: false }), (
 });
 
 // Get the data about films by director
-app.get('/films/Director/:_id', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.get('/Director/:_id', passport.authenticate('jwt', { session: false }), (req, res) => {
   Films.find({ Director: mongoose.Types.ObjectId(req.params._id) })
   .populate({path: 'Genre', model: Genres})
   .populate({path: 'Director', model: Directors})
@@ -110,35 +110,11 @@ app.get('/genres', passport.authenticate('jwt', { session: false }), (req, res) 
     });
 });
 
-// Get the data about a genre, by name
-app.get('/genres/:Name', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Genres.findOne({ Name: req.params.Name })
-    .then((genre) => {
-      res.json(genre);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    });
-});
-
 // Get the list of data about ALL directors
 app.get('/directors', passport.authenticate('jwt', { session: false }), (req, res) => {
   Directors.find()
     .then((directors) => {
       res.status(201).json(directors);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    });
-});
-
-// Get the data about a director, by name
-app.get('/directors/:Name', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Directors.findOne({ Name: req.params.Name })
-    .then((director) => {
-      res.json(director);
     })
     .catch((err) => {
       console.error(err);
