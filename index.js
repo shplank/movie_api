@@ -230,7 +230,7 @@ app.delete('/favorites/:Username/films/:_id', passport.authenticate('jwt', { ses
   Email: String, (required)
   Birthday: Date
 }*/
-app.put('/users/:Username', passport.authenticate('jwt', { session: false }),
+app.put('/users/update/:Username', passport.authenticate('jwt', { session: false }),
   [check('Username', 'Username of at least five characters is required').isLength({ min: 5 }),
   check('Username', 'Username contains non-alphanumeric characters - not allowed').isAlphanumeric(),
   check('Password', 'Password is required').not().isEmpty(),
