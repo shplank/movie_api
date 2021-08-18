@@ -245,7 +245,7 @@ app.put('/users/update/:Username', passport.authenticate('jwt', { session: false
       $set:
       {
         Username: req.body.Username,
-        Password: req.body.Password,
+        Password: hashedPassword,
         Email: req.body.Email,
         Birthdate: req.body.Birthdate
       }
