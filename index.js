@@ -210,7 +210,6 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (r
 /**
 * Add a new user to 'Users' collection
 * @method POST
-* @method populate adds film data from Films document via Favorites array
 * @param {string} endpoint - /register
 * @param {string} Username
 * @param {string} Password
@@ -229,7 +228,7 @@ app.post('/register',
       return res.status(422).json({ errors: errors.array() });
     }
     let hashedPassword = Users.hashPassword(req.body.Password);
-    Users.findOne({ Username: req.body.Username })
+    Users.findOne({ Username: req.body.Username }) // checks to see if Username alrady exists in collection
       .then((user) => {
         if (user) {
           return res.status(400).send(req.body.Username + ' already exists');
@@ -254,7 +253,15 @@ app.post('/register',
       });
   });
 
-// Add a film to a user's list of favorites
+/**
+* Add a film to a user's list of favorites in that user document
+* @method POST
+* @param {string} endpoint - /favorites/:Username/films/:_id
+* @param {string} Username
+* @param {string} _id of film
+* @requires authentication JWT
+* @returns {object} updates user object
+*/
 app.post('/favorites/:Username/films/:_id', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, 
     { $push: { Favorites: req.params._id } },
@@ -269,7 +276,15 @@ app.post('/favorites/:Username/films/:_id', passport.authenticate('jwt', { sessi
     });
 });
 
-// Remove a film from a user's list of favorites
+/**
+* Remove a film from a user's list of favorites in that user document
+* @method DELETE
+* @param {string} endpoint - /favorites/:Username/films/:_id
+* @param {string} Username
+* @param {string} _id of film
+* @requires authentication JWT
+* @returns {object} updates user object
+*/
 app.delete('/favorites/:Username/films/:_id', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username },
     { $pull: { Favorites: req.params._id } },
@@ -284,14 +299,17 @@ app.delete('/favorites/:Username/films/:_id', passport.authenticate('jwt', { ses
     });
 });
 
-// Update a user's profile by username
-/* We’ll expect JSON in this format
-{
-  Username: String, (required)
-  Password: String, (required)
-  Email: String, (required)
-  Birthday: Date
-}*/
+/**
+* Update a user's profile by username
+* @method PUT
+* @param {string} endpoint - /users/update/:Username
+* @param {string} Username
+* @param {string} Password
+* @param {string} Email
+* @param {string} Birthdate
+* @requires authentication JWT
+* @returns {object} returns updated user object in json format
+*/
 app.put('/users/update/:Username', passport.authenticate('jwt', { session: false }),
   [check('Username', 'Username of at least five characters is required').isLength({ min: 5 }),
   check('Username', 'Username contains non-alphanumeric characters - not allowed').isAlphanumeric(),
@@ -323,7 +341,13 @@ app.put('/users/update/:Username', passport.authenticate('jwt', { session: false
       });
   });
 
-// De-registers a user by username
+/**
+* De-registers a user by username
+* @method DELETE
+* @param {string} endpoint - /users/:Username
+* @param {string} Username
+* @requires authentication JWT
+*/
 app.delete('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndRemove({ Username: req.params.Username })
     .then((user) => {
