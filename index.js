@@ -42,7 +42,15 @@ app.get('/documentation', (req, res) => {
 
 app.use(express.static('public'));
 
-// Get the list of data about ALL films
+
+/**
+* Get the list of data about all films in 'Films' collection
+* @method GET
+* @method populate adds data from Genre and Director documents
+* @param {string} endpoint - /films
+* @requires authentication JWT
+* @returns {array} returns array of film objects in json format
+*/
 app.get('/films', passport.authenticate('jwt', { session: false }), (req, res) => {
   Films.find()
   .populate({path: 'Genre', model: Genres})
@@ -56,7 +64,15 @@ app.get('/films', passport.authenticate('jwt', { session: false }), (req, res) =
     });
 });
 
-// Get the data about a single film, by title
+/**
+* Get the data about a single film document in 'Films' collection
+* @method GET
+* @method populate adds data from Genre and Director documents
+* @param {string} endpoint - /films/:Title
+* @param {string} Title of film
+* @requires authentication JWT
+* @returns {object} returns film object in json format
+*/
 app.get('/films/:Title', passport.authenticate('jwt', { session: false }), (req, res) => {
   Films.findOne({ Title: req.params.Title })
   .populate({path: 'Genre', model: Genres})
@@ -70,7 +86,15 @@ app.get('/films/:Title', passport.authenticate('jwt', { session: false }), (req,
     });
 });
 
-// Get the data about films by genre
+/**
+* Get the data about films of one genre from 'Films' collection
+* @method GET
+* @method populate adds data from Genre and Director documents
+* @param {string} endpoint - /Genre/:_id
+* @param {string} _id of genre
+* @requires authentication JWT
+* @returns {array} returns array of film objects in json format
+*/
 app.get('/Genre/:_id', passport.authenticate('jwt', { session: false }), (req, res) => {
   Films.find({ Genre: mongoose.Types.ObjectId(req.params._id) })
   .populate({path: 'Genre', model: Genres})
@@ -84,7 +108,15 @@ app.get('/Genre/:_id', passport.authenticate('jwt', { session: false }), (req, r
     });
 });
 
-// Get the data about films by director
+/**
+* Get the data about films of one director from 'Films' collection
+* @method GET
+* @method populate adds data from Genre and Director documents
+* @param {string} endpoint - /Director/:_id
+* @param {string} _id of director
+* @requires authentication JWT
+* @returns {array} returns array of film objects in json format
+*/
 app.get('/Director/:_id', passport.authenticate('jwt', { session: false }), (req, res) => {
   Films.find({ Director: mongoose.Types.ObjectId(req.params._id) })
   .populate({path: 'Genre', model: Genres})
@@ -98,7 +130,13 @@ app.get('/Director/:_id', passport.authenticate('jwt', { session: false }), (req
     });
 });
 
-// Get the list of data about ALL genres
+/**
+* Get the list of data about all genres in 'Genres' collection
+* @method GET
+* @param {string} endpoint - /genres
+* @requires authentication JWT
+* @returns {array} returns array of genre objects in json format
+*/
 app.get('/genres', passport.authenticate('jwt', { session: false }), (req, res) => {
   Genres.find()
     .then((genres) => {
@@ -110,7 +148,13 @@ app.get('/genres', passport.authenticate('jwt', { session: false }), (req, res) 
     });
 });
 
-// Get the list of data about ALL directors
+/**
+* Get the list of data about all directors in 'Directors' collection
+* @method GET
+* @param {string} endpoint - /directors
+* @requires authentication JWT
+* @returns {array} returns array of director objects in json format
+*/
 app.get('/directors', passport.authenticate('jwt', { session: false }), (req, res) => {
   Directors.find()
     .then((directors) => {
@@ -122,7 +166,13 @@ app.get('/directors', passport.authenticate('jwt', { session: false }), (req, re
     });
 });
 
-// Get all users
+/**
+* Get the list of data about all users in 'Users' collection
+* @method GET
+* @param {string} endpoint - /users
+* @requires authentication JWT
+* @returns {array} returns array of user objects in json format
+*/
 app.get('/users', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.find()
     .then((users) => {
@@ -134,7 +184,15 @@ app.get('/users', passport.authenticate('jwt', { session: false }), (req, res) =
     });
 });
 
-// Get a user by username
+/**
+* Get the data about a single user document in 'Users' collection
+* @method GET
+* @method populate adds film data from Films document via Favorites array
+* @param {string} endpoint - /users/:Username
+* @param {string} Username
+* @requires authentication JWT
+* @returns {object} returns user object in json format
+*/
 app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOne({ Username: req.params.Username })
   .populate({path: 'Favorites', model: Films})
@@ -147,14 +205,19 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (r
     });
 });
 
-//Add a user
-/* We’ll expect JSON in this format
-{
-  Username: String,
-  Password: String,
-  Email: String,
-  Birthdate: Date
-}*/
+// POST/PUT/DELETE requests
+
+/**
+* Add a new user to 'Users' collection
+* @method POST
+* @method populate adds film data from Films document via Favorites array
+* @param {string} endpoint - /register
+* @param {string} Username
+* @param {string} Password
+* @param {string} Email
+* @param {string} Birthdate
+* @returns {object} creates user object in json format
+*/
 app.post('/register',
   [check('Username', 'Username of at least five characters is required').isLength({ min: 5 }),
   check('Username', 'Username contains non-alphanumeric characters - not allowed').isAlphanumeric(),
@@ -193,9 +256,8 @@ app.post('/register',
 
 // Add a film to a user's list of favorites
 app.post('/favorites/:Username/films/:_id', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Users.findOneAndUpdate({ Username: req.params.Username }, {
-    $push: { Favorites: req.params._id }
-  },
+  Users.findOneAndUpdate({ Username: req.params.Username }, 
+    { $push: { Favorites: req.params._id } },
     { new: true }, // This line makes sure that the updated document is returned
     (err, updatedUser) => {
       if (err) {
