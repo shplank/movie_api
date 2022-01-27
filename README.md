@@ -1,10 +1,8 @@
 ## Mooovies API
 
-The server-side component of the Mooovies web application (https://github.com/shplank/Mooovies-Angular). Designed to provide information about different films, genres, and directors.
+The server-side component of the Mooovies web application (https://github.com/shplank/Mooovies-Angular and https://github.com/shplank/Mooovies-client). Designed to provide information about different films, genres, and directors.
 
 A Node.js/Express application built with MongoDB using REST architecture. Tested with Postman and deployed via Heroku.
-
-Features as described by User Stories and Test Scenarios
 
 **FEATURES**
 
